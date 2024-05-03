@@ -21,6 +21,9 @@
         <activity
             android:name=".SubwayInfo"
             android:exported="false" />
+        <activity
+            android:name=".TimeTest"
+            android:exported="false" />
 
         <activity
             android:name=".SubwayActivity"

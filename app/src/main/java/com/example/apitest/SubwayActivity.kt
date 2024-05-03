@@ -32,6 +32,10 @@ class SubwayActivity : AppCompatActivity() {
             var intent = Intent(this, SubwayAPI::class.java)
             startActivity(intent)
         }
+        binding.menu2.setOnClickListener {
+            var intenttt = Intent(this, TimeTest::class.java)
+            startActivity(intenttt)
+        }
 
 
     }
