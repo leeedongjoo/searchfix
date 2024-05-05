@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -18,9 +20,11 @@ import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SubwayAPI : AppCompatActivity() {
+class SubwayAPI() : AppCompatActivity() {
     private val timeFormat = SimpleDateFormat("EE, HH:mm", Locale.KOREA)  // "시:분" 형식으로 시간 지정
     private val handler = Handler(Looper.getMainLooper())
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,80 +43,90 @@ class SubwayAPI : AppCompatActivity() {
 
 
         binding.btnSearch.setOnClickListener {
-            val calendar = Calendar.getInstance()    // calendar = 현재 날짜와 시간
+            val calendar = Calendar.getInstance()
+            val formattedTime = timeFormat.format(calendar.time)
+            val parts = formattedTime.split(", ")  // "EE, HH:mm" 포맷에 맞춰 분리
 
-            val formattedTime = timeFormat.format(calendar.time)  // "요일, 시:분" 형식으로 포맷
-            val parts = formattedTime.split(", ", ":")  // 문자열을 ", "과 ":"로 분리
+            val day = parts[0]  // 요일 (EE)
+            val hour = parts[1].split(":")[0]  // 시간 (HH)
+            val minute = parts[1].split(":")[1]  // 분 (mm)
 
-            val a = parts[0]  // 요일 (EE요일)
-            val b = parts[1]  // 시간 (HH)
-            val c = parts[2]  // 분 (mm)
-            // (Optional) 디버깅을 위해 Logcat에 출력
-            Log.d("TimeTest", "요일: $a, 시: $b, 분: $c")
             val searchText = binding.etSearch.text.toString()
             try {
                 if (searchText.isNotEmpty()) {
-                    searchDepartureStation(searchText) // 출발역 검색 메서드 호출
-
-                    binding.btnSearch.setOnClickListener {
-                        var intent = Intent(this, SubwayInfo::class.java)
-                        startActivity(intent)
-                    }
+                    searchDepartureStation(searchText, day) // 출발역 및 요일 검색 메서드 호출
                 } else {
-                    Log.d("Search", "Please enter a departure station to search.") // 검색어가 비어있을 때 로그 출력
-                    Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Log.d("Search", "Please enter a departure station to search.")
+                    Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: IOException) {
-                Log.e("MainActivity", "Failed to load data: ", e) // 데이터 로드 실패 시 로그 출력
+                Log.e("MainActivity", "Failed to load data: ", e)
             } catch (e: CsvException) {
-                Log.e("MainActivity", "CSV parsing error: ", e) // CSV 파싱 오류 시 로그 출력
+                Log.e("MainActivity", "CSV parsing error: ", e)
             }
-
         }
-
     }
 
+
     @Throws(IOException::class, CsvException::class)
-    // CSV 파일에서 가져온 내용을 위의 코드에 들어가 입력한 값이 파일내에 있는지 확인해서 출력해줌
-    private fun searchDepartureStation(departureStation: String) {
+    private fun searchDepartureStation(departureStation: String, day: String) {
         var binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val assetManager = this.assets // AssetManager 객체 가져오기
-        val inputStream = assetManager.open("subway.csv") // assets 폴더에 있는 CSV 파일 열기
-        val csvReader = CSVReader(InputStreamReader(inputStream, "EUC-KR")) // CSVReader 초기화
-        val allContent = csvReader.readAll() // CSV 파일 전체 내용 읽어오기
 
+        val assetManager = this.assets
+        val inputStream = assetManager.open("subway.csv")
+        val csvReader = CSVReader(InputStreamReader(inputStream, "EUC-KR"))
+        val allContent = csvReader.readAll()
 
-        var found = false // 결과를 찾았는지 여부를 나타내는 플래그 변수
-        for (row in allContent.drop(1)) { // CSV 파일 내 각 행에 대해 반복 (첫 번째 행은 헤더이므로 건너뜀)
-            if (row[4].equals(departureStation, ignoreCase = true)) {
-                // 시간대가 현재 시간대에 해당하고 출발역이 일치하는 경우
-                val serialNumber = row[0] // 연번
-                val dayDivision = row[1] // 요일구분
-                val lineName = row[2] // 호선
-                val stationCode = row[3] // 역번호
-                val direction = row[5] // 상하구분
-                Log.d("SearchResult", "연번: $serialNumber, 요일구분: $dayDivision, 호선: $lineName, 역번호: $stationCode, 출발역: $departureStation, 상하구분: $direction, 시간: ${row[6]}, ${row[7]}, ${row[8]}")
+        var found = false
+        val dayCondition = when (day) {
+            "토" -> "토요일"
+            "일" -> "일요일"
+            else -> "평일"
+        }
+
+        for (row in allContent.drop(1)) {
+            if (row[4].equals(departureStation, ignoreCase = true) && row[1].equals(
+                    dayCondition,
+                    ignoreCase = true
+                )
+            ) {
+                // 검색된 데이터 변수에 저장
+                val serialNumber = row[0]  // 연번
+                val dayDivision = row[1]  // 요일구분
+                val lineName = row[2]  // 호선
+                val stationCode = row[3]  // 역번호
+                val direction = row[5]  // 상하구분
+                val firstDensity = row[6]  // 첫 번째 시간 밀집도
+                val secondDensity = row[7]  // 두 번째 시간 밀집도
+                val thirdDensity = row[8]  // 세 번째 시간 밀집도
+
+                // 로그로 결과 출력
+                Log.d(
+                    "SearchResult",
+                    "연번: $serialNumber, 요일구분: $dayDivision, 호선: $lineName, 역번호: $stationCode, 출발역: $departureStation, 상하구분: $direction, 시간: $firstDensity, $secondDensity, $thirdDensity"
+                )
+
+                // UI에 검색 결과 표시
                 binding.showresultTX.text = "$serialNumber"
                 binding.showresultTX2.text = "$dayDivision"
                 binding.showresultTX3.text = "$lineName 호선"
                 binding.showresultTX4.text = "역번호: $stationCode"
                 binding.showresultTX5.text = "출발역: $departureStation"
                 binding.showresultTX6.text = "상하구분: $direction"
-                binding.showresultTX7.text = "시간당 밀집도: ${row[6]}%"
-                Toast.makeText(applicationContext, "검색성공(확인용)", Toast.LENGTH_SHORT).show();
+                binding.showresultTX7.text = "시간당 밀집도: $firstDensity%"
 
-                found = true // 결과를 찾았으므로 플래그 변수 설정
+                Toast.makeText(applicationContext, "검색성공(확인용)", Toast.LENGTH_SHORT).show()
 
+                found = true
             }
+
+            if (!found) {
+                Log.d("Search", "No results found for: $departureStation on $dayCondition.")
+                Toast.makeText(applicationContext, "정확한 역이름을 검색해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+            csvReader.close()
         }
-
-        if (!found) {
-            Log.d("Search", "No results found for: $departureStation in the current time block.") // 검색 결과가 없을 때 로그 출력
-            Toast.makeText(applicationContext, "정확한 역이름을 검색해주세요.", Toast.LENGTH_SHORT).show()
-
-        }
-
     }
-
 }
