@@ -2,6 +2,14 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
+//allprojects 이거부분 네이버 api를 사용하기위해 네이버지도 레포지토리를 가져오게 하는 부분
+allprojects{
+    repositories{
+        google()
+        mavenCentral()
+        maven("https://repository.map.naver.com/achive/maven")
+    }
+}
 
 android {
     buildFeatures{
