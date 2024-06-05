@@ -55,7 +55,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.opencsv:opencsv:5.6")
     implementation("androidx.test:core:1.5.0-rc01")
-    implementation("com.naver.maps:map-sdk:3.18.0")
 
     //implementation ("com.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9") // Gson 컨버터 추가
 }
