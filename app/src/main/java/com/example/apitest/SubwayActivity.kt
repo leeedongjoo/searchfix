@@ -2,8 +2,6 @@ package com.example.apitest
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -15,13 +13,8 @@ class SubwayActivity : AppCompatActivity() {
     private lateinit var checkBoxes: Array<CheckBox>
     private lateinit var checkBox0: CheckBox
 
-    private var scaleGestureDetector: ScaleGestureDetector? = null
-    private var scaleFactor = 1.0f
-    private lateinit var imageView: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subway)
         enableEdgeToEdge()
         val binding = ActivitySubwayBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -99,21 +92,5 @@ class SubwayActivity : AppCompatActivity() {
 
     private fun updateImageVisibility(isChecked: Boolean, imageView: ImageView) {
         imageView.visibility = if (isChecked) ImageView.VISIBLE else ImageView.GONE
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return event?.let {
-            scaleGestureDetector?.onTouchEvent(it) ?: false
-        } ?: false
-    }
-
-    inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-            scaleFactor *= detector.scaleFactor
-            scaleFactor = scaleFactor.coerceIn(1.0f, 9.0f)
-            imageView.scaleX = scaleFactor
-            imageView.scaleY = scaleFactor
-            return true
-        }
     }
 }
