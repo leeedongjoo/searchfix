@@ -115,7 +115,7 @@
 
         <CheckBox
             android:id="@+id/checkBox0"
-            android:layout_width="66dp"
+            android:layout_width="66.5dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
