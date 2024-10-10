@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:background="@drawable/background_bottom_sheet"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="50dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/big_rounded_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="역을 클릭해 주세요"
+        android:textStyle="bold"
+        android:layout_margin="0dp"
+        android:textSize="25sp"
+        android:id="@+id/sheettxt"
+        />
+
+    <Button
+        android:id="@+id/page_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:text="밑의 버튼들을 이용해 주세요"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/page_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:text="혼잡도 보기를 아직 안누르셨군요."
+        android:textSize="15sp"  />
+
+    <Button
+        android:id="@+id/page_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:text="역이름을 정확히 입력하고 혼잡도 보기를 눌러주세요."
+        android:textSize="15sp"  />
+
+
+    <!--바텀 시트 숨기기-->
+    <Button
+        android:id="@+id/page_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:text="내리기"
+        android:textSize="15sp"  />
+
+</LinearLayout>

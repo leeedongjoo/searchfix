@@ -24,7 +24,10 @@ class SubwayActivity : AppCompatActivity() {
         imageView = findViewById(R.id.img_subway)
 
         scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
+        binding.youngsan.setOnClickListener {
+            binding.testtx.text = "success"
 
+        }
         binding.menu1.setOnClickListener {
             var intent = Intent(this, SubwayAPI::class.java)
             startActivity(intent)

@@ -83,10 +83,18 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="현재시간"
+            android:text="최근검색"
             android:paddingRight="5dp"/>
 
-
+        <TextView
+            android:id="@+id/txtX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="미정"
+            android:paddingRight="10dp"/>
 
         <TextView
             android:id="@+id/txtSetting"
@@ -95,7 +103,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="they are nothing  "
+            android:text="설정"
             android:paddingRight="50dp"/>
     </LinearLayout>
 
@@ -196,9 +204,6 @@
 
 
     </RelativeLayout>
-<com.otaliastudios.zoom.ZoomLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -211,18 +216,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
-            android:id="@+id/img_subwaytwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/linetwo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+        android:id="@+id/img_subwaytwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/linetwo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwaythree"
             android:layout_width="wrap_content"
@@ -231,8 +236,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwayfour"
             android:layout_width="wrap_content"
@@ -241,8 +246,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwayfive"
             android:layout_width="wrap_content"
@@ -251,8 +256,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwaysix"
             android:layout_width="wrap_content"
@@ -261,8 +266,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwayseven"
             android:layout_width="wrap_content"
@@ -271,8 +276,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
         <ImageView
             android:id="@+id/img_subwayeight"
             android:layout_width="wrap_content"
@@ -281,7 +286,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+        </ImageView>
 
         <ImageView
             android:id="@+id/img_subwaynine"
@@ -293,9 +299,11 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0">
+
+
+        </ImageView>
 
 
     </FrameLayout>
-</com.otaliastudios.zoom.ZoomLayout>
 </LinearLayout>

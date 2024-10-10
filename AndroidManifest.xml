@@ -14,9 +14,13 @@
         android:theme="@style/Theme.APITest"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="YOUR_CLIENT_ID_HERE" />
 
         <activity
             android:name=".SubwayAPI"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:exported="false" />
         <activity
             android:name=".TimeTest"
