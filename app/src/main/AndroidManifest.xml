@@ -24,9 +24,12 @@
         <activity
             android:name=".SubwayInfo"
             android:exported="false" />
-
         <activity
             android:name=".SubwayActivity"
+            android:exported="false" />
+<!--        위에거가 원래 메인화면-->
+        <activity
+            android:name=".ServerSub"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
