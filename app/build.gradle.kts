@@ -73,7 +73,7 @@ dependencies {
 
     // Firebase Realtime Database 의존성 (BoM으로 관리되므로 버전 생략)
     implementation("com.google.firebase:firebase-database")
-
+    implementation("com.google.firebase:firebase-firestore")
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 }
